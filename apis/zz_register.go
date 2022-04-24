@@ -22,14 +22,46 @@ package apis
 import (
 	"k8s.io/apimachinery/pkg/runtime"
 
-	v1alpha1 "github.com/crossplane-contrib/provider-jet-template/apis/null/v1alpha1"
-	v1alpha1apis "github.com/crossplane-contrib/provider-jet-template/apis/v1alpha1"
+	v1alpha1 "github.com/crossplane-contrib/provider-jet-ranchertest/apis/app/v1alpha1"
+	v1alpha1auth "github.com/crossplane-contrib/provider-jet-ranchertest/apis/auth/v1alpha1"
+	v1alpha1catalog "github.com/crossplane-contrib/provider-jet-ranchertest/apis/catalog/v1alpha1"
+	v1alpha1cloud "github.com/crossplane-contrib/provider-jet-ranchertest/apis/cloud/v1alpha1"
+	v1alpha1cluster "github.com/crossplane-contrib/provider-jet-ranchertest/apis/cluster/v1alpha1"
+	v1alpha1config "github.com/crossplane-contrib/provider-jet-ranchertest/apis/config/v1alpha1"
+	v1alpha1etcd "github.com/crossplane-contrib/provider-jet-ranchertest/apis/etcd/v1alpha1"
+	v1alpha1global "github.com/crossplane-contrib/provider-jet-ranchertest/apis/global/v1alpha1"
+	v1alpha1machine "github.com/crossplane-contrib/provider-jet-ranchertest/apis/machine/v1alpha1"
+	v1alpha1multi "github.com/crossplane-contrib/provider-jet-ranchertest/apis/multi/v1alpha1"
+	v1alpha1node "github.com/crossplane-contrib/provider-jet-ranchertest/apis/node/v1alpha1"
+	v1alpha1pod "github.com/crossplane-contrib/provider-jet-ranchertest/apis/pod/v1alpha1"
+	v1alpha1project "github.com/crossplane-contrib/provider-jet-ranchertest/apis/project/v1alpha1"
+	v1alpha1rancher2 "github.com/crossplane-contrib/provider-jet-ranchertest/apis/rancher2/v1alpha1"
+	v1alpha1role "github.com/crossplane-contrib/provider-jet-ranchertest/apis/role/v1alpha1"
+	v1alpha1secret "github.com/crossplane-contrib/provider-jet-ranchertest/apis/secret/v1alpha1"
+	v1alpha1storage "github.com/crossplane-contrib/provider-jet-ranchertest/apis/storage/v1alpha1"
+	v1alpha1apis "github.com/crossplane-contrib/provider-jet-ranchertest/apis/v1alpha1"
 )
 
 func init() {
 	// Register the types with the Scheme so the components can map objects to GroupVersionKinds and back
 	AddToSchemes = append(AddToSchemes,
 		v1alpha1.SchemeBuilder.AddToScheme,
+		v1alpha1auth.SchemeBuilder.AddToScheme,
+		v1alpha1catalog.SchemeBuilder.AddToScheme,
+		v1alpha1cloud.SchemeBuilder.AddToScheme,
+		v1alpha1cluster.SchemeBuilder.AddToScheme,
+		v1alpha1config.SchemeBuilder.AddToScheme,
+		v1alpha1etcd.SchemeBuilder.AddToScheme,
+		v1alpha1global.SchemeBuilder.AddToScheme,
+		v1alpha1machine.SchemeBuilder.AddToScheme,
+		v1alpha1multi.SchemeBuilder.AddToScheme,
+		v1alpha1node.SchemeBuilder.AddToScheme,
+		v1alpha1pod.SchemeBuilder.AddToScheme,
+		v1alpha1project.SchemeBuilder.AddToScheme,
+		v1alpha1rancher2.SchemeBuilder.AddToScheme,
+		v1alpha1role.SchemeBuilder.AddToScheme,
+		v1alpha1secret.SchemeBuilder.AddToScheme,
+		v1alpha1storage.SchemeBuilder.AddToScheme,
 		v1alpha1apis.SchemeBuilder.AddToScheme,
 	)
 }

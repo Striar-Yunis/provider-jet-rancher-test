@@ -21,16 +21,120 @@ import (
 
 	"github.com/crossplane/terrajet/pkg/controller"
 
-	resource "github.com/crossplane-contrib/provider-jet-template/internal/controller/null/resource"
-	providerconfig "github.com/crossplane-contrib/provider-jet-template/internal/controller/providerconfig"
+	v2 "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/app/v2"
+	configactivedirectory "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/auth/configactivedirectory"
+	configadfs "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/auth/configadfs"
+	configazuread "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/auth/configazuread"
+	configfreeipa "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/auth/configfreeipa"
+	configgithub "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/auth/configgithub"
+	configkeycloak "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/auth/configkeycloak"
+	configokta "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/auth/configokta"
+	configopenldap "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/auth/configopenldap"
+	configping "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/auth/configping"
+	v2catalog "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/catalog/v2"
+	credential "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/cloud/credential"
+	alertgroup "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/cluster/alertgroup"
+	alertrule "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/cluster/alertrule"
+	driver "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/cluster/driver"
+	logging "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/cluster/logging"
+	roletemplatebinding "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/cluster/roletemplatebinding"
+	sync "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/cluster/sync"
+	template "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/cluster/template"
+	v2cluster "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/cluster/v2"
+	mapv2 "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/config/mapv2"
+	backup "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/etcd/backup"
+	dns "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/global/dns"
+	dnsprovider "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/global/dnsprovider"
+	role "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/global/role"
+	rolebinding "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/global/rolebinding"
+	configv2 "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/machine/configv2"
+	clusterapp "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/multi/clusterapp"
+	drivernode "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/node/driver"
+	pool "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/node/pool"
+	templatenode "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/node/template"
+	securitypolicytemplate "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/pod/securitypolicytemplate"
+	alertgroupproject "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/project/alertgroup"
+	alertruleproject "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/project/alertrule"
+	loggingproject "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/project/logging"
+	roletemplatebindingproject "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/project/roletemplatebinding"
+	providerconfig "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/providerconfig"
+	app "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/rancher2/app"
+	bootstrap "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/rancher2/bootstrap"
+	catalog "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/rancher2/catalog"
+	certificate "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/rancher2/certificate"
+	cluster "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/rancher2/cluster"
+	feature "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/rancher2/feature"
+	namespace "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/rancher2/namespace"
+	notifier "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/rancher2/notifier"
+	project "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/rancher2/project"
+	registry "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/rancher2/registry"
+	secret "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/rancher2/secret"
+	setting "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/rancher2/setting"
+	token "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/rancher2/token"
+	user "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/rancher2/user"
+	templaterole "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/role/template"
+	v2secret "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/secret/v2"
+	classv2 "github.com/crossplane-contrib/provider-jet-ranchertest/internal/controller/storage/classv2"
 )
 
 // Setup creates all controllers with the supplied logger and adds them to
 // the supplied manager.
 func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
-		resource.Setup,
+		v2.Setup,
+		configactivedirectory.Setup,
+		configadfs.Setup,
+		configazuread.Setup,
+		configfreeipa.Setup,
+		configgithub.Setup,
+		configkeycloak.Setup,
+		configokta.Setup,
+		configopenldap.Setup,
+		configping.Setup,
+		v2catalog.Setup,
+		credential.Setup,
+		alertgroup.Setup,
+		alertrule.Setup,
+		driver.Setup,
+		logging.Setup,
+		roletemplatebinding.Setup,
+		sync.Setup,
+		template.Setup,
+		v2cluster.Setup,
+		mapv2.Setup,
+		backup.Setup,
+		dns.Setup,
+		dnsprovider.Setup,
+		role.Setup,
+		rolebinding.Setup,
+		configv2.Setup,
+		clusterapp.Setup,
+		drivernode.Setup,
+		pool.Setup,
+		templatenode.Setup,
+		securitypolicytemplate.Setup,
+		alertgroupproject.Setup,
+		alertruleproject.Setup,
+		loggingproject.Setup,
+		roletemplatebindingproject.Setup,
 		providerconfig.Setup,
+		app.Setup,
+		bootstrap.Setup,
+		catalog.Setup,
+		certificate.Setup,
+		cluster.Setup,
+		feature.Setup,
+		namespace.Setup,
+		notifier.Setup,
+		project.Setup,
+		registry.Setup,
+		secret.Setup,
+		setting.Setup,
+		token.Setup,
+		user.Setup,
+		templaterole.Setup,
+		v2secret.Setup,
+		classv2.Setup,
 	} {
 		if err := setup(mgr, o); err != nil {
 			return err
